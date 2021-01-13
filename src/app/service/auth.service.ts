@@ -43,6 +43,10 @@ export class AuthService {
       .toPromise();
   }
 
+  activateUser(link: string) {
+    return this.http.get(`/api/user/activation/${link}`).toPromise();
+  }
+
   logoutUser() {
     this.clearTokenFromLS();
     this.user.next({ token: '' });

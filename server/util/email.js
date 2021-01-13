@@ -32,7 +32,10 @@ const verifyUniqueLink = (link) => {
 // Send mail with unique string
 const sendActivationEmail = async (username, email) => {
   let link =
-    BASE_URL + "api/user/activation/" + generateUniqueLink(username, email);
+    // Route to API path
+    // BASE_URL + "api/user/activation/" + generateUniqueLink(username, email);
+    // Route to Client path
+    BASE_URL + "activate/" + generateUniqueLink(username, email);
   try {
     let info = await transporter.sendMail({
       from: "BusChecker <noreply@buschecker.com>",

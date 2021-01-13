@@ -15,6 +15,7 @@ import { LoginComponent } from './component/user/login/login.component';
 import { ProfileComponent } from './component/user/profile/profile.component';
 import { SignupComponent } from './component/user/signup/signup.component';
 import { ArrivalTimePipe } from './util/pipe/toArrivalTime.pipe';
+import { ActivationComponent } from './component/user/activation/activation.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ArrivalTimePipe } from './util/pipe/toArrivalTime.pipe';
     ProfileComponent,
     SignupComponent,
     ArrivalTimePipe,
+    ActivationComponent,
   ],
   imports: [
     BrowserModule,

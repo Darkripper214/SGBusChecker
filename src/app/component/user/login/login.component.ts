@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
         case 403:
           alert('Account not yet activated, please activate before login');
           break;
+        case 401:
+          alert('Invalid username or password');
+          break;
         default:
           alert('Something went wrong');
       }
