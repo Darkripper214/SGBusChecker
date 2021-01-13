@@ -18,6 +18,7 @@ interface BusArrival {
 export class BusArrivalComponent implements OnInit, OnDestroy {
   arrivalUpdate$: Subscription;
   intervalRequest$: Subscription;
+  intervalPing$: Subscription;
   busArrivalDetail: BusArrival | {} = {};
   services: [] = [];
   stopCode: number;
@@ -45,6 +46,10 @@ export class BusArrivalComponent implements OnInit, OnDestroy {
       this.services = res['Services'];
     });
     this.wsService.subLiveUpdate(this.stopCode);
+
+    this.intervalPing$ = interval(25 * 1000)
+      .pipe(takeWhile(() => !!this.wsService.socketState))
+      .subscribe(() => this.wsService.pingServer());
 
     // Observable to trigger request call every minute
     this.intervalRequest$ = interval(60 * 1000)

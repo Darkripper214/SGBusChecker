@@ -95,6 +95,12 @@ router.ws("/ws/:BusStopCode", (ws, req) => {
           };
           ws.send(JSON.stringify(respond));
           break;
+        case REQ_TYPE_CLIENT_PING:
+          respond = {
+            type: RES_TYPE_SERVER_PING,
+          };
+          ws.send(JSON.stringify(respond));
+          break;
         default:
           break;
       }
@@ -138,5 +144,7 @@ function getArrivalTime(bus) {
 const RES_TYPE_CONNECTED = "CONNECTED";
 const RES_TYPE_SERVER_RESPOND = "RESPOND";
 const REQ_TYPE_CLIENT_REQUEST = "REQUEST";
+const REQ_TYPE_CLIENT_PING = "CLIENT_PING";
+const RES_TYPE_SERVER_PING = "SERVER_PING";
 
 module.exports = router;

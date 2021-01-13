@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 const RES_TYPE_CONNECTED = 'CONNECTED';
 const RES_TYPE_SERVER_RESPOND = 'RESPOND';
 const REQ_TYPE_CLIENT_REQUEST = 'REQUEST';
+const REQ_TYPE_CLIENT_PING = 'CLIENT_PING';
+const RES_TYPE_SERVER_PING = 'SERVER_PING';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +33,12 @@ export class WebSocketService {
           this.socketState = true;
           break;
         case RES_TYPE_SERVER_RESPOND:
+          console.log('Received bus arrival update from server');
           this.arrivalUpdate.next(msg['data']);
+          break;
+        case RES_TYPE_SERVER_PING:
+          console.log('Received return ping from server');
+          break;
         default:
           break;
       }
@@ -52,6 +59,14 @@ export class WebSocketService {
     const payload = JSON.stringify({
       type: REQ_TYPE_CLIENT_REQUEST,
       stopCode: stopCode,
+    });
+    this.sock.send(payload);
+  }
+
+  // Ping server to ensure connection is alive due to Heroku 55sec timeout
+  pingServer() {
+    const payload = JSON.stringify({
+      type: REQ_TYPE_CLIENT_PING,
     });
     this.sock.send(payload);
   }
