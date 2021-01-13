@@ -2,8 +2,8 @@
   "name": "bus-checker",
   "version": "0.0.0",
   "scripts": {
+    "start": "node server",
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
