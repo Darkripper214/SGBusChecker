@@ -1,0 +1,15 @@
+.form-control.ng-touched.ng-invalid {
+  border: 2px solid red;
+}
+
+.form-control.ng-touched.ng-valid {
+  border: 2px solid green;
+}
+
+.invalid-password {
+  border: 2px solid red !important;
+}
+
+.error-text {
+  color: red;
+}

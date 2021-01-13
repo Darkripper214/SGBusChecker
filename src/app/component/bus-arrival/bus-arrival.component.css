@@ -1,0 +1,27 @@
+.img-bus {
+  width: 62px;
+
+  padding-right: 0;
+}
+
+.img-wab {
+  width: 52px;
+  padding-right: 0;
+}
+
+.bus-load {
+  width: 65px;
+  height: 6px;
+}
+
+.bus-load-SEA {
+  background-color: green;
+}
+
+.bus-load-SDA {
+  background-color: orange;
+}
+
+.bus-load-LSD {
+  background-color: red;
+}

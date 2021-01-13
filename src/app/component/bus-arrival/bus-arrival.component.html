@@ -1,0 +1,115 @@
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="legend-id">
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link btn-block text-left"
+          type="button"
+          data-toggle="collapse"
+          data-target="#legend"
+          aria-expanded="true"
+          aria-controls="legend"
+        >
+          Legend
+        </button>
+      </h2>
+    </div>
+
+    <div id="legend" class="collapse show" aria-labelledby="legend-id">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <img src="../../../assets/logo/SD.svg" class="img-bus" />
+            <small>Single Deck</small>
+          </div>
+          <div class="col">
+            <img src="../../../assets/logo/DD.svg" class="img-bus" />
+            <small>Double Deck</small>
+          </div>
+          <div class="col mt-3">
+            <div class="bus-load bus-load-SEA"></div>
+            <small>Seat Available</small>
+          </div>
+          <div class="col mt-3">
+            <div class="bus-load bus-load-SDA"></div>
+            <small>Standing Available</small>
+          </div>
+          <div class="col mt-3">
+            <div class="bus-load bus-load-LSD"></div>
+            <small>Limited Standing</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" *ngFor="let svc of services">
+      <div class="card-header" id="heading{{ svc.ServiceNo }}">
+        <h2 class="mb-0">
+          <button
+            class="btn btn-link btn-block text-left"
+            type="button"
+            data-toggle="collapse"
+            [attr.data-target]="'#content' + svc.ServiceNo"
+            aria-expanded="true"
+            [attr.aria-controls]="svc.ServiceNo"
+          >
+            Service No.: {{ svc.ServiceNo }}
+          </button>
+        </h2>
+      </div>
+
+      <div
+        id="content{{ svc.ServiceNo }}"
+        class="collapse show"
+        [attr.aria-labelledby]="'heading' + svc.ServiceNo"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4" *ngIf="svc.NextBus.Type">
+              <div class="row pl-3">
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus.Type }}.svg"
+                  class="img-bus"
+                />
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus.Feature }}.svg"
+                  class="img-wab ml-1"
+                />
+              </div>
+              <div class="bus-load bus-load-{{ svc.NextBus.Load }}"></div>
+              {{ this.svc.NextBus.EstimatedArrival | toArrivalTime }}
+            </div>
+            <div class="col-4" *ngIf="svc.NextBus2.Type">
+              <div class="row pl-3">
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus2.Type }}.svg"
+                  class="img-bus"
+                />
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus2.Feature }}.svg"
+                  class="img-wab ml-1"
+                />
+              </div>
+              <div class="bus-load bus-load-{{ svc.NextBus2.Load }}"></div>
+              {{ this.svc.NextBus2.EstimatedArrival | toArrivalTime }}
+            </div>
+            <div class="col-4" *ngIf="svc.NextBus3.Type">
+              <div class="row pl-3">
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus3.Type }}.svg"
+                  class="img-bus"
+                />
+                <img
+                  src="../../../assets/logo/{{ svc.NextBus3.Feature }}.svg"
+                  class="img-wab ml-1"
+                />
+              </div>
+              <div class="bus-load bus-load-{{ svc.NextBus3.Load }}"></div>
+              {{ this.svc.NextBus3.EstimatedArrival | toArrivalTime }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

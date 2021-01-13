@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="mt-2">Search Result</h1>
+  <a class="btn btn-primary mt-2" [routerLink]="['/']" role="button"
+    >Return to HomePage</a
+  >
+
+  <div *ngIf="searchResult">
+    <div class="card mt-1" *ngFor="let res of searchResult">
+      <div class="card-body">
+        <h5 class="card-title">{{ res.Description }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ res.RoadName }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{ res.BusStopCode }}</h6>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          [routerLink]="['/busstop', res.BusStopCode]"
+        >
+          Get Arrival Time
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

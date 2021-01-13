@@ -1,0 +1,38 @@
+<div class="jumbotron jumbotron-fluid" *ngIf="busStopDetail">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">{{ busStopDetail["Description"] }}</h1>
+      <h1 class="display-6">{{ busStopDetail["BusStopCode"] }}</h1>
+      <p class="lead">
+        Road Name: {{ busStopDetail["RoadName"] }}
+        <br />
+        Latitude: {{ busStopDetail["Latitude"] | number: ".6" }}
+        <br />
+        Longitude: {{ busStopDetail["Longitude"] | number: ".6" }}
+      </p>
+      <a class="btn btn-primary" [routerLink]="['/']" role="button"
+        >Return to HomePage</a
+      >
+    </div>
+    <div class="col">
+      <div class="d-flex justify-content-end">
+        <!-- <img
+          [src]="oneMapUrl"
+          width="250"
+          height="250"
+          frameborder="0"
+          style="border: 0"
+        /> -->
+        <iframe
+          [src]="googleUrl | sanitizeUrl"
+          alt=""
+          width="250"
+          height="250"
+          class="rounded float-right"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<app-bus-arrival></app-bus-arrival>

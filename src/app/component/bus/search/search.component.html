@@ -1,0 +1,34 @@
+<h3>Search for Bus Stop</h3>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label class="form-label">Bus Stop Code</label>
+    <input
+      type="number"
+      (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+      class="form-control"
+      placeholder="10339"
+      formControlName="stopCode"
+    />
+    <label class="form-label">Bus Stop Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Toa Payoh"
+      formControlName="stopName"
+    />
+  </div>
+  <div class="d-flex justify-content-between">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="searchForm.invalid"
+    >
+      Search
+    </button>
+
+    <button class="btn btn-warning" type="button" (click)="onGetLocation()">
+      Search By Location
+    </button>
+  </div>
+</form>

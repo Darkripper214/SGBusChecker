@@ -1,0 +1,96 @@
+<h2>Sign Up</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Your Username"
+      formControlName="username"
+    />
+    <div *ngIf="username.touched && username.invalid">
+      <small class="error-text" *ngIf="username.errors.required"
+        >Please provide username</small
+      >
+      <small class="error-text" *ngIf="username.errors.minlength"
+        >Minimum of four character</small
+      >
+    </div>
+
+    <label class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Your Password"
+      formControlName="password"
+    />
+    <div *ngIf="password.touched && password.invalid">
+      <small class="error-text" *ngIf="password.errors.required"
+        >Please provide password</small
+      >
+      <small class="error-text" *ngIf="password.errors.minlength"
+        >Minimum of four character</small
+      >
+    </div>
+
+    <label class="form-label">Confirm Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Confirm Your Password"
+      formControlName="password2"
+      [ngClass]="{
+        'invalid-password':
+          password2.touched &&
+          registerForm.errors &&
+          registerForm.errors.notSame
+      }"
+    />
+    <div *ngIf="password2.touched && password2.invalid">
+      <small class="error-text" *ngIf="password2.errors.required">
+        Please confirm your password
+      </small>
+      <small class="error-text" *ngIf="password2.errors.minlength">
+        Minimum of four character
+      </small>
+    </div>
+    <div *ngIf="password2.touched && registerForm.invalid">
+      <small
+        class="error-text"
+        *ngIf="registerForm.errors && registerForm.errors.notSame"
+      >
+        Password does not match
+      </small>
+    </div>
+
+    <label class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Your Email"
+      formControlName="email"
+    />
+
+    <div *ngIf="email.touched && email.invalid">
+      <small class="error-text" *ngIf="email.errors.required"
+        >Email is required</small
+      >
+      <small
+        class="error-text"
+        *ngIf="email.errors.email || email.errors.pattern"
+        >Please provide valid email</small
+      >
+    </div>
+  </div>
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="registerForm.invalid"
+  >
+    Submit
+  </button>
+
+  <button class="btn btn-primary" type="button" (click)="patch()">
+    PatchValue
+  </button>
+</form>

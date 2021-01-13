@@ -1,0 +1,91 @@
+<br />
+<div class="card" *ngIf="!editProfileState">
+  <div class="card-header">Your Profile Info</div>
+  <div class="card-body">
+    <img [src]="userProfile['profilepic']" />
+    <h5 class="card-title">Email: {{ userProfile["email"] }}</h5>
+    <div class="card-text">Username: {{ userProfile["name"] }}</div>
+    <div class="card-text">Contact Num: {{ userProfile["contactnum"] }}</div>
+    <div class="card-text">Name: {{ userProfile["name"] }}</div>
+    <button
+      class="btn btn-warning"
+      type="button"
+      (click)="toggleEditProfileState()"
+    >
+      Edit
+    </button>
+  </div>
+</div>
+
+<form
+  [formGroup]="userProfileForm"
+  (ngSubmit)="updateProfile()"
+  *ngIf="editProfileState"
+>
+  <div class="mb-3">
+    <label class="form-label">Profile Picture</label>
+    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+      <img [src]="imageURL" [alt]="userProfileForm.value.name" />
+    </div>
+    <input
+      type="file"
+      class="form-control"
+      name="profilepic"
+      accept="image/*"
+      (change)="showPreview($event)"
+    />
+    <div *ngIf="f.profilepic.touched && f.profilepic.invalid">
+      <small class="error-text" *ngIf="f.profilepic.errors.required"
+        >Please upload your profile picture</small
+      >
+    </div>
+
+    <label class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Your Name"
+      formControlName="name"
+    />
+    <div *ngIf="f.name.touched && f.name.invalid">
+      <small class="error-text" *ngIf="f.name.errors.required"
+        >Please provide your name</small
+      >
+    </div>
+
+    <label class="form-label">Contact Number</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="84525478"
+      formControlName="contactnum"
+    />
+
+    <div *ngIf="f.contactnum.touched && f.contactnum.invalid">
+      <small class="error-text" *ngIf="f.contactnum.errors.required"
+        >Contact Number is required</small
+      >
+      <small
+        class="error-text"
+        *ngIf="f.contactnum.errors.contactnum || f.contactnum.errors.pattern"
+        >Please provide valid Contact Number(Singapore Format)</small
+      >
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="userProfileForm.invalid"
+    >
+      Submit
+    </button>
+    <button
+      class="btn btn-warning"
+      type="button"
+      (click)="toggleEditProfileState()"
+    >
+      Discard
+    </button>
+  </div>
+</form>

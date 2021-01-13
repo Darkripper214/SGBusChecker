@@ -1,0 +1,48 @@
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Your Username"
+      formControlName="username"
+    />
+    <div *ngIf="username.touched && username.invalid">
+      <small class="error-text" *ngIf="username.errors.required"
+        >Please provide username</small
+      >
+      <small class="error-text" *ngIf="username.errors.minlength"
+        >Minimum of four character</small
+      >
+    </div>
+
+    <label class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Your Password"
+      formControlName="password"
+    />
+    <div *ngIf="password.touched && password.invalid">
+      <small class="error-text" *ngIf="password.errors.required"
+        >Please provide password</small
+      >
+      <small class="error-text" *ngIf="password.errors.minlength"
+        >Minimum of four character</small
+      >
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Submit
+    </button>
+
+    <button class="btn btn-primary" type="button" (click)="patch()">
+      PatchValue
+    </button>
+  </div>
+</form>
