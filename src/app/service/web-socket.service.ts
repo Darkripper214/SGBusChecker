@@ -17,7 +17,7 @@ export class WebSocketService {
   arrivalObservable = this.arrivalUpdate as Observable<{}>;
   constructor() {}
 
-  subLiveUpdate(stopCode: number) {
+  subLiveUpdate(stopCode: string) {
     let url = location.origin;
     // Brute Force change address and port, to revise implementation
     url = url.replace('4200', '3000');
@@ -55,7 +55,7 @@ export class WebSocketService {
     };
   }
   // Request for update from server
-  requestUpdate(stopCode: number) {
+  requestUpdate(stopCode: string) {
     const payload = JSON.stringify({
       type: REQ_TYPE_CLIENT_REQUEST,
       stopCode: stopCode,

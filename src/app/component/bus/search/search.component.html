@@ -4,7 +4,7 @@
   <div class="mb-3">
     <label class="form-label">Bus Stop Code</label>
     <input
-      type="number"
+      type="text"
       (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
       class="form-control"
       placeholder="10339"
@@ -16,13 +16,27 @@
       class="form-control"
       placeholder="Toa Payoh"
       formControlName="stopName"
+      (input)="liveSearchBusStop($event.target.value)"
     />
+    <div class="container absolute-pos">
+      <div class="live-search" *ngIf="stopNameSearch$ | async as busStops">
+        <ul class="" *ngIf="busStops.length >= 2">
+          <li class="live-search-result" *ngFor="let busStop of busStops">
+            <a class="card-title" (click)="QuickSearch(busStop)">{{
+              busStop.Description
+            }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="d-flex justify-content-between">
     <button
       class="btn btn-primary"
       type="submit"
-      [disabled]="searchForm.invalid"
+      [disabled]="
+        !(searchForm.get('stopName').valid || searchForm.get('stopCode').valid)
+      "
     >
       Search
     </button>

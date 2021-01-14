@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/service/http.service';
 
-interface BusStop {
+interface BusStop extends Object {
   BusStopCode: string;
   RoadName: string;
   Description: string;
@@ -19,20 +19,23 @@ export class BusstopComponent implements OnInit {
 
   oneMapUrl: string;
   googleUrl: string;
-  stopCode: number;
+  stopCode: string;
 
   constructor(private route: ActivatedRoute, private http: HttpService) {}
 
   ngOnInit(): void {
-    this.stopCode = parseInt(this.route.snapshot.params['id']);
+    this.stopCode = this.route.snapshot.params['id'];
 
     this.http
       .searchBusStopByCode(this.stopCode)
       .then((res) => {
         this.busStopDetail = res;
-        this.oneMapUrl = `https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=${res['Latitude']}&lng=${res['Longitude']}&zoom=17&width=250&height=250`;
         this.googleUrl = `https://maps.google.com/maps?q=${res['Latitude']},${res['Longitude']}&z=16&output=embed`;
       })
       .catch((err) => console.log(err));
+  }
+
+  isEmptyObject(obj: any) {
+    return obj && Object.keys(obj).length === 0;
   }
 }

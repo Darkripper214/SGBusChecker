@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid" *ngIf="busStopDetail">
+<div class="jumbotron jumbotron-fluid" *ngIf="!isEmptyObject(busStopDetail)">
   <div class="row">
     <div class="col">
       <h1 class="display-4">{{ busStopDetail["Description"] }}</h1>
@@ -16,13 +16,6 @@
     </div>
     <div class="col">
       <div class="d-flex justify-content-end">
-        <!-- <img
-          [src]="oneMapUrl"
-          width="250"
-          height="250"
-          frameborder="0"
-          style="border: 0"
-        /> -->
         <iframe
           [src]="googleUrl | sanitizeUrl"
           alt=""
@@ -35,4 +28,9 @@
   </div>
 </div>
 <br />
-<app-bus-arrival></app-bus-arrival>
+<app-bus-arrival *ngIf="!isEmptyObject(busStopDetail)"></app-bus-arrival>
+
+<div class="" *ngIf="isEmptyObject(busStopDetail)">
+  <h3>Bus Stop {{ stopCode }} Does Not Exists</h3>
+  <button class="btn btn-primary" [routerLink]="['/']">Return</button>
+</div>

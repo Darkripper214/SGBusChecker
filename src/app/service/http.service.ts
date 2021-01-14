@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +22,17 @@ export class HttpService {
   searchBusStopByName(name: string) {
     return this.http.get<[]>(`/api/busstop/desc/${name}`).toPromise();
   }
-  searchBusStopByCode(code: number) {
+
+  searchBusStopByNameObs(name: string) {
+    return this.http
+      .get<[]>(`/api/busstop/desc/${name}`)
+      .pipe(catchError((err) => of([])));
+  }
+  searchBusStopByCode(code: string) {
     return this.http.get<{}>(`/api/busstop/code/${code}`).toPromise();
   }
 
-  getBusArrivalByCode(code: number) {
+  getBusArrivalByCode(code: string) {
     return this.http.get<{}>(`/api/busarrival/code/${code}`).toPromise();
   }
 

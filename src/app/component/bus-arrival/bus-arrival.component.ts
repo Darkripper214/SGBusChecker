@@ -21,7 +21,7 @@ export class BusArrivalComponent implements OnInit, OnDestroy {
   intervalPing$: Subscription;
   busArrivalDetail: BusArrival | {} = {};
   services: [] = [];
-  stopCode: number;
+  stopCode: string;
   constructor(
     private route: ActivatedRoute,
     private http: HttpService,
@@ -33,7 +33,7 @@ export class BusArrivalComponent implements OnInit, OnDestroy {
     this.wsService.close();
   }
   ngOnInit(): void {
-    this.stopCode = parseInt(this.route.snapshot.params['id']);
+    this.stopCode = this.route.snapshot.params['id'];
     // Subscribe to ws subject updating from WebSocket
     // Future implementation might change to HTTP for simple design
     this.arrivalUpdate$ = this.wsService.arrivalObservable.subscribe((res) => {

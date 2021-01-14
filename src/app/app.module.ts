@@ -6,7 +6,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { SearchComponent } from './component/bus/search/search.component';
 import { BusstopComponent } from './component/bus/busstop/busstop.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './routes/appRouting.module';
 import { BusstoplistComponent } from './component/busstoplist/busstoplist.component';
 import { SanitizeUrlPipe } from './util/pipe/sanitizeUrl.pipe';
@@ -16,6 +16,7 @@ import { ProfileComponent } from './component/user/profile/profile.component';
 import { SignupComponent } from './component/user/signup/signup.component';
 import { ArrivalTimePipe } from './util/pipe/toArrivalTime.pipe';
 import { ActivationComponent } from './component/user/activation/activation.component';
+import { LoaderInterceptor } from './util/functions/HTTP-interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { ActivationComponent } from './component/user/activation/activation.comp
     HttpClientModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
