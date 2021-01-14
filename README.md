@@ -5,8 +5,34 @@ A simple application for locating bus stop location and bus arrival time in Sing
 Live Demo: https://sgbuschecker.herokuapp.com/
 Telegram Bot: @buschecker_bot
 Link to Telegram: https://t.me/buschecker_bot
+Telegram Bot Repo: https://github.com/Darkripper214/BusCheckerTelegramBot
 
-API provided by LTA.
+**Features:**
+
+- Connect to Third Part API (By LTA)
+
+- User authentication using JWT & Passport
+
+- Activation Email when user register
+
+- User Data stored in MySQL Cloud
+
+- User profile photo upload to Amazon S3
+
+- Bus Stop data stored in MongoDB Atlas (Data obtained from LTA API, subsequent query are to own MongoDB)
+
+- Bus Arrival data request on demand and cached in Express Server
+
+- SPA using Angular and deployed as Same-Origin using Express
+
+- Live Update of Bus Arrival on Client using web socket
+
+- Live Search Bar for Bus Stop Name
+
+- Loader Spinner using HTTP Interceptor
+
+  
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
 ## Development server

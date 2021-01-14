@@ -94,7 +94,8 @@ passport.use(
     }
   )
 );
-// Create user endpoint
+
+// Register user endpoint
 router.post("/", async (req, res) => {
   let { username, email, password } = req.body;
   if (!validateEmail(email)) {
@@ -102,13 +103,23 @@ router.post("/", async (req, res) => {
       .status(401)
       .json({ error: "Please provide valid email address" });
   }
+  const conn = await pool.getConnection();
   try {
-    let result = await createUser([username, email, password]);
-    await createUserProfile(result["insertId"]);
+    await conn.beginTransaction();
+    let result = await conn.query(queryCreateUser, [username, email, password]);
+    await conn.query(queryCreateUserProfile, result[0]["insertId"]);
     await sendActivationEmail(username, email);
-    res.status(200).json(result);
+    // let result = await createUser([username, email, password]);
+    // await createUserProfile(result["insertId"]);
+    // await sendActivationEmail(username, email);
+    await conn.commit();
+    res.status(200).json(result[0]);
   } catch (error) {
+    conn.rollback();
+    console.log(error);
     res.status(400).json(error);
+  } finally {
+    conn.release();
   }
 });
 

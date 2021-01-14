@@ -25,7 +25,10 @@
           >
         </li>
         <li class="nav-item px-2">
-          <a class="nav-link" *ngIf="isAuthenticated" (click)="onLogout()"
+          <a
+            class="nav-link header"
+            *ngIf="isAuthenticated"
+            (click)="onLogout()"
             >Logout</a
           >
         </li>
