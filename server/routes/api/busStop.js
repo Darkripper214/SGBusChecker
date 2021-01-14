@@ -22,7 +22,7 @@ router.get("/code/:id", async (req, res) => {
 router.get("/desc/:name", async (req, res) => {
   let name = req.params.name;
   // Allow request to specify size
-  let size = Math.max(parseInt(req.query["size"]), 100);
+  let size = parseInt(req.query["size"]) || 100;
 
   try {
     // find similar name

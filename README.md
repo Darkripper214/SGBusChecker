@@ -1,5 +1,12 @@
 # BusChecker
 
+A simple application for locating bus stop location and bus arrival time in Singapore.
+
+Live Demo: https://sgbuschecker.herokuapp.com/
+Telegram Bot: @buschecker_bot
+Link to Telegram: https://t.me/buschecker_bot
+
+API provided by LTA.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
 ## Development server
