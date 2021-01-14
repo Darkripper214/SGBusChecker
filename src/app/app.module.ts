@@ -17,6 +17,8 @@ import { SignupComponent } from './component/user/signup/signup.component';
 import { ArrivalTimePipe } from './util/pipe/toArrivalTime.pipe';
 import { ActivationComponent } from './component/user/activation/activation.component';
 import { LoaderInterceptor } from './util/functions/HTTP-interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,9 @@ import { LoaderInterceptor } from './util/functions/HTTP-interceptor';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
