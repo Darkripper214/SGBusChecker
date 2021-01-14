@@ -6,6 +6,7 @@ const { connectSQL } = require("./server/config/sql");
 const passport = require("passport");
 const expressWs = require("express-ws");
 const path = require("path");
+const helmet = require("helmet");
 const {
   generateUniqueLink,
   verifyUniqueLink,
@@ -17,8 +18,9 @@ const app = express();
 const appWs = expressWs(app);
 app.use(morgan("combined"));
 // Init Middleware
-app.use(express.json({ extended: false }));
-app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(express.json({ extended: false, limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(express.static("public"));
 app.use(passport.initialize(app));
 

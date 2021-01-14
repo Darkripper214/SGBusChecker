@@ -14,8 +14,8 @@ import { LoaderService } from './service/loader.service';
 })
 export class AppComponent implements AfterViewInit {
   title = 'busChecker';
-  @ViewChild('container') container: ElementRef;
-  @ViewChild('outlet') outlet: ElementRef;
+  @ViewChild('loader') loader: ElementRef;
+  @ViewChild('overlay') overlay: ElementRef;
   constructor(
     private loaderService: LoaderService,
     private renderer: Renderer2
@@ -30,9 +30,11 @@ export class AppComponent implements AfterViewInit {
         return;
       }
       if (status) {
-        this.renderer.addClass(this.container.nativeElement, 'loader');
+        this.renderer.addClass(this.loader.nativeElement, 'loader');
+        this.renderer.addClass(this.overlay.nativeElement, 'overlay-color');
       } else {
-        this.renderer.removeClass(this.container.nativeElement, 'loader');
+        this.renderer.removeClass(this.loader.nativeElement, 'loader');
+        this.renderer.removeClass(this.overlay.nativeElement, 'overlay-color');
       }
     });
   }
