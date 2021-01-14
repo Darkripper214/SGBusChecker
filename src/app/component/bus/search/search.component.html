@@ -21,10 +21,12 @@
     <div class="container absolute-pos">
       <div class="live-search" *ngIf="stopNameSearch$ | async as busStops">
         <ul class="" *ngIf="busStops.length >= 2">
-          <li class="live-search-result" *ngFor="let busStop of busStops">
-            <a class="card-title" (click)="QuickSearch(busStop)">{{
-              busStop.Description
-            }}</a>
+          <li
+            class="live-search-result"
+            *ngFor="let busStop of busStops"
+            (click)="QuickSearch(busStop)"
+          >
+            <a class="card-title">{{ busStop.Description }}</a>
           </li>
         </ul>
       </div>

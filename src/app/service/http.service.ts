@@ -25,9 +25,10 @@ export class HttpService {
 
   searchBusStopByNameObs(name: string) {
     return this.http
-      .get<[]>(`/api/busstop/desc/${name}`)
+      .get<[]>(`/api/busstop/desc/${name}?size=10`)
       .pipe(catchError((err) => of([])));
   }
+
   searchBusStopByCode(code: string) {
     return this.http.get<{}>(`/api/busstop/code/${code}`).toPromise();
   }

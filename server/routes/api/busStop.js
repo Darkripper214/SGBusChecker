@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const BusStop = require('../../models/BusStop');
+const BusStop = require("../../models/BusStop");
 
 // String for selecting parameter without MongoDB _id field
-const selectItem = 'BusStopCode RoadName Description Latitude Longitude -_id';
+const selectItem = "BusStopCode RoadName Description Latitude Longitude -_id";
 
-router.get('/code/:id', async (req, res) => {
+router.get("/code/:id", async (req, res) => {
   let id = req.params.id;
 
   let result = await BusStop.findOne({
@@ -19,22 +19,31 @@ router.get('/code/:id', async (req, res) => {
   res.json(result);
 });
 
-router.get('/desc/:name', async (req, res) => {
+router.get("/desc/:name", async (req, res) => {
   let name = req.params.name;
+  // Allow request to specify size
+  let size = Math.max(parseInt(req.query["size"]), 100);
 
-  // find similar name
-  let result = await BusStop.find({
-    Description: { $regex: name, $options: 'i' },
-  }).select(selectItem);
+  try {
+    // find similar name
+    let result = await BusStop.find({
+      Description: { $regex: name, $options: "i" },
+    })
+      .select(selectItem)
+      .limit(size);
 
-  if (!result) {
-    res.json({});
-    return;
+    if (!result) {
+      res.json({});
+      return;
+    }
+    console.log(result.length);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error);
   }
-  res.json(result);
 });
 
-router.get('/location/', async (req, res) => {
+router.get("/location/", async (req, res) => {
   let longitude = parseFloat(req.query.longitude);
   let latitude = parseFloat(req.query.latitude);
 
@@ -47,7 +56,7 @@ router.get('/location/', async (req, res) => {
       Location: {
         $near: {
           $maxDistance: 200,
-          $geometry: { type: 'Point', coordinates: [longitude, latitude] },
+          $geometry: { type: "Point", coordinates: [longitude, latitude] },
         },
       },
     }).select(selectItem);
