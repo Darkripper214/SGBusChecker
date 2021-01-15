@@ -65,15 +65,6 @@ export class SignupComponent implements OnInit {
     return pass === pass2 ? null : { notSame: true };
   }
 
-  patch() {
-    this.registerForm.patchValue({
-      username: 'abcd',
-      password: 'abcd',
-      password2: 'abcd',
-      email: 'phakorn214@gmail.com',
-    });
-  }
-
   async onSubmit() {
     try {
       let result = await this.auth.registerUser(this.registerForm.value);

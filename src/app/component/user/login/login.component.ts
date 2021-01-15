@@ -33,12 +33,6 @@ export class LoginComponent implements OnInit {
     this.password = this.loginForm.get('password');
     this.username = this.loginForm.get('username');
   }
-  patch() {
-    this.loginForm.patchValue({
-      username: 'abcd',
-      password: 'abcd',
-    });
-  }
 
   async onLogin() {
     try {
